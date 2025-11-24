@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Персональный онлайн-журнал</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <h1 class="logo">МойЖурнал</h1>
+                <div class="nav-links">
+                    <a href="#" class="nav-link active" data-section="home">Главная</a>
+                    <a href="#" class="nav-link" data-section="categories">Категории</a>
+                    <a href="#" class="nav-link" data-section="favorites">Избранное</a>
+                    <a href="#" class="nav-link" data-section="profile">Профиль</a>
+                    
+                    <!-- Кнопки авторизации (показываются когда пользователь не авторизован) -->
+                    <div class="auth-buttons" id="authButtons">
+                        <button class="auth-btn login-btn" id="loginBtn">Войти</button>
+                        <button class="auth-btn register-btn" id="registerBtn">Регистрация</button>
+                    </div>
+                    
+                    <!-- Меню пользователя (показывается когда пользователь авторизован) -->
+                    <div class="user-menu" id="userMenu" style="display: none;">
+                        <div class="user-avatar" id="userAvatar">U</div>
+                        <span class="username" id="username">Пользователь</span>
+                        <button class="logout-btn" id="logoutBtn">Выйти</button>
+                    </div>
+                    
+                    <button class="theme-toggle" id="themeToggle">🌙</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Страница авторизации -->
+        <section id="auth" class="section">
+            <div class="container">
+                <div class="auth-section" id="loginForm">
+                    <h2>Вход в систему</h2>
+                    <form id="loginFormElement">
+                        <div class="form-group">
+                            <label for="loginEmail">Email</label>
+                            <input type="email" id="loginEmail" required>
+                            <div class="form-error" id="loginEmailError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Пароль</label>
+                            <input type="password" id="loginPassword" required>
+                            <div class="form-error" id="loginPasswordError"></div>
+                        </div>
+                        <button type="submit" class="btn-primary" style="width: 100%;">Войти</button>
+                    </form>
+                    <div class="auth-link">
+                        Нет аккаунта? <a href="#" id="showRegister">Зарегистрироваться</a>
+                    </div>
+                </div>
+
+                <div class="auth-section" id="registerForm" style="display: none;">
+                    <h2>Регистрация</h2>
+                    <form id="registerFormElement">
+                        <div class="form-group">
+                            <label for="registerName">Имя</label>
+                            <input type="text" id="registerName" required>
+                            <div class="form-error" id="registerNameError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerEmail">Email</label>
+                            <input type="email" id="registerEmail" required>
+                            <div class="form-error" id="registerEmailError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerPassword">Пароль</label>
+                            <input type="password" id="registerPassword" required minlength="6">
+                            <div class="form-error" id="registerPasswordError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerConfirmPassword">Подтвердите пароль</label>
+                            <input type="password" id="registerConfirmPassword" required>
+                            <div class="form-error" id="registerConfirmPasswordError"></div>
+                        </div>
+                        <button type="submit" class="btn-primary" style="width: 100%;">Зарегистрироваться</button>
+                    </form>
+                    <div class="auth-link">
+                        Уже есть аккаунт? <a href="#" id="showLogin">Войти</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Главная страница -->
+        <section id="home" class="section active">
+            <div class="container">
+                <div class="hero">
+                    <h2>Добро пожаловать в ваш персональный журнал</h2>
+                    <p>Откройте для себя статьи, подобранные специально для вас</p>
+                </div>
+                
+                <div class="preferences-panel">
+                    <h3>Ваши предпочтения</h3>
+                    <div id="selectedPreferences" class="selected-preferences">
+                        <!-- Выбранные категории будут здесь -->
+                    </div>
+                    <button id="editPreferences" class="btn-secondary">Изменить предпочтения</button>
+                </div>
+                
+                <div class="articles-grid" id="articlesGrid">
+                    <!-- Статьи будут загружаться здесь -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Страница категорий -->
+        <section id="categories" class="section">
+            <div class="container">
+                <h2>Выберите интересующие вас категории</h2>
+                <div class="categories-grid" id="categoriesGrid">
+                    <!-- Категории будут загружаться здесь -->
+                </div>
+                <button id="savePreferences" class="btn-primary">Сохранить предпочтения</button>
+            </div>
+        </section>
+
+        <!-- Страница избранного -->
+        <section id="favorites" class="section">
+            <div class="container">
+                <h2>Избранные статьи</h2>
+                <div class="articles-grid" id="favoritesGrid">
+                    <!-- Избранные статьи будут здесь -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Страница профиля -->
+        <section id="profile" class="section">
+            <div class="container">
+                <h2>Ваш профиль</h2>
+                <div class="profile-info">
+                    <div class="profile-avatar">
+                        <div class="avatar-placeholder" id="profileAvatar">U</div>
+                    </div>
+                    <div class="profile-details">
+                        <h3 id="userName">Пользователь</h3>
+                        <p>Email: <span id="userEmail">user@example.com</span></p>
+                        <p>Подписан на <span id="preferencesCount">0</span> категорий</p>
+                        <p>В избранном: <span id="favoritesCount">0</span> статей</p>
+                    </div>
+                </div>
+                <div class="profile-actions">
+                    <button id="resetPreferences" class="btn-secondary">Сбросить предпочтения</button>
+                    <button id="clearFavorites" class="btn-secondary">Очистить избранное</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Модальное окно для статьи -->
+    <div id="articleModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle">Заголовок статьи</h2>
+            <div class="article-meta">
+                <span id="modalCategory">Категория</span>
+                <span id="modalDate">Дата</span>
+            </div>
+            <div id="modalContent" class="article-content">
+                Содержимое статьи...
+            </div>
+            <div class="modal-actions">
+                <button id="toggleFavorite" class="btn-primary">Добавить в избранное</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
